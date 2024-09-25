@@ -14,12 +14,14 @@ class CachePeekMethod {
     required this.targetMethodName,
     required this.returnType,
     required this.params,
+    required this.hasTtl,
   });
 
   factory CachePeekMethod.fromElement(
     MethodElement element,
     List<ExecutableElement> classMethods,
     Config config,
+    Set<String> ttlsToCheck,
   ) {
     final annotation = getAnnotation(element);
 
@@ -109,12 +111,14 @@ class CachePeekMethod {
         element: element,
       );
     }
+    final hasTtl = ttlsToCheck.contains(methodName);
 
     return CachePeekMethod(
       name: element.name,
       returnType: peekCacheMethodTypeStr,
       params: targetMethodParameters.map((p) => Param.fromElement(p, config)),
       targetMethodName: methodName,
+      hasTtl: hasTtl,
     );
   }
 
@@ -122,6 +126,7 @@ class CachePeekMethod {
   final String targetMethodName;
   final Iterable<Param> params;
   final String returnType;
+  final bool hasTtl;
 
   static DartObject? getAnnotation(MethodElement element) {
     const methodAnnotationChecker = TypeChecker.fromRuntime(CachePeek);

@@ -120,6 +120,7 @@ class ClassWithCache {
             e,
             [...element.methods, ...element.accessors],
             config,
+            {...methodsWithTtls, ...gettersWithTtls},
           ),
         )
         .toList();
