@@ -20,7 +20,7 @@ environment:
   sdk: ">=3.6.0 <4.0.0"
 
 dependencies:
-  analyzer: ^7.3.0
+  analyzer: ^7.0.0
   build: ^2.4.1
   cached_annotation:
     path: ../cached_annotation
